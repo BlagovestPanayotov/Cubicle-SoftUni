@@ -6,9 +6,9 @@ const routes = require('./config/routes');
 
 const app = express();
 setupViewEngine(app);
-app.set('/src/static', express.static('static'));
+app.use(express.static('src/static'));
 
 app.use(routes);
 
-app.listen(config.PORT,()=>console.log(`Server is running on PORT ${config.PORT}...`))
+app.listen(config.PORT, () => console.log(`Server is running on PORT ${config.PORT}...`))
 
