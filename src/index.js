@@ -6,6 +6,7 @@ const routes = require('./config/routes');
 
 const app = express();
 setupViewEngine(app);
+app.set('/src/static', express.static('static'));
 
 app.use(routes);
 
