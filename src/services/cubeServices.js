@@ -6,6 +6,11 @@ function getCubes(name = '', from = 1, to = 6) {
         .filter(x => x.difficultyLevel <= to);
 }
 
+function getById(id) {
+    return db.cubes.find(x => x.id == id);
+}
+
 module.exports = {
-    getCubes
+    getCubes,
+    getById
 }
