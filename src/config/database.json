@@ -41,6 +41,13 @@
       "description": "Big cube",
       "imageUrl": "https://images.interestingengineering.com/images/JULY/Erno_Rubik_Magic_Cube.jpg",
       "difficultyLevel": 5
+    },
+    {
+      "id": 7,
+      "name": "Funny cube",
+      "description": "Funny cubic cube",
+      "imageUrl": "https://thumbs.dreamstime.com/b/call-me-funny-rubic-cube-cartoon-character-concept-vector-illustration-171747927.jpg",
+      "difficultyLevel": 1
     }
   ]
 }
