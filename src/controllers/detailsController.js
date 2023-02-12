@@ -6,13 +6,13 @@ router.get('/details/:cubeId', async (req, res) => {
     const id = req.params.cubeId;
     try {
         const cube = await getById(id).lean();
+        res.render('details', {
+            cube
+        })
     } catch (err) {
         res.redirect('/404')
     }
 
-    res.render('details', {
-        cube
-    })
 });
 
 module.exports = router;
