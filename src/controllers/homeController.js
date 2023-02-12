@@ -3,7 +3,7 @@ const { getCubes } = require('../services/cubeServices');
 
 router.get('/', async (req, res) => {
     // const { search, from, to } = req.query;
-    const cubes = await getCubes();
+    const cubes = await getCubes().lean();
     res.render('index', {
         cubes,
         // search, from, to

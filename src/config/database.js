@@ -11,6 +11,8 @@ module.exports = async (app) => {
         });
         console.log('Database connected');
     } catch (err) {
-
+        console.error('Error initializing database');
+        console.error(err.message);
+        process.exit(1);
     }
 }

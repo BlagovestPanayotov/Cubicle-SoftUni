@@ -8,7 +8,6 @@ router.get('/create', (req, res) => {
 
 router.post('/create', (req, res) => {
     createCube(req.body);
-
     res.redirect('/');
 })
 
