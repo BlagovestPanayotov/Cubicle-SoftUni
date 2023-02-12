@@ -1,4 +1,3 @@
-const db = require('../config/database.json');
 const Cube = require('../models/Cube');
 
 function getCubes(search, from, to) {
@@ -16,9 +15,8 @@ function getById(id) {
     return Cube.findById(id);
 }
 
-async function createCube({ name, description, imageUrl, difficultyLevel }) {
-    await (await Cube.create({ name, description, imageUrl, difficultyLevel })).save();
-
+function createCube({ name, description, imageUrl, difficultyLevel }) {
+    return Cube.create({ name, description, imageUrl, difficultyLevel });
 }
 
 module.exports = {

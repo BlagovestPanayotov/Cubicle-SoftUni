@@ -3,11 +3,16 @@ const { getCubes } = require('../services/cubeServices');
 
 router.get('/', async (req, res) => {
     // const { search, from, to } = req.query;
-    const cubes = await getCubes().lean();
-    res.render('index', {
-        cubes,
-        // search, from, to
-    });
+    try {
+        const cubes = await getCubes().lean();
+        res.render('index', {
+            cubes,
+            // search, from, to
+        });
+    } catch (err) {
+        res.redirect('/404')
+    }
+    
 });
 
 router.all('/about', (req, res) => {
