@@ -5,7 +5,6 @@ router.get('/', (req, res) => {
     const { search, from, to } = req.query;
     const cubes = getCubes(search, from, to);
     res.render('index', {
-        title: 'Cubicle',
         cubes,
         search, from, to
     });

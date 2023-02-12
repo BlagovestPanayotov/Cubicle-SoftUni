@@ -7,7 +7,6 @@ router.get('/details/:cubeId', (req, res) => {
     const cube = getById(id);
 
     res.render('details',{
-        title:"Cubicle",
         cube
     })
 });
