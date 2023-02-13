@@ -6,8 +6,9 @@ router.get('/details/:cubeId', async (req, res) => {
     const id = req.params.cubeId;
     try {
         const cube = await getById(id).lean();
+        cube.accessories = [1];
         res.render('details', {
-            cube
+            cube,
         })
     } catch (err) {
         res.redirect('/404')
