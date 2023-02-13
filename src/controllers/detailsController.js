@@ -8,7 +8,7 @@ router.get('/details/:cubeId', async (req, res) => {
     try {
         const cube = await getById(id).lean();
         const accessories = await getAccessory(id);
-        // console.log(accessories);
+        console.log(accessories);
         cube.accessories = [1];
         res.render('details', {
             cube,
