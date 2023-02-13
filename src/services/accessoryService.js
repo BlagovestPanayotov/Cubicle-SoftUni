@@ -1,5 +1,9 @@
 const Accessory = require('../models/Accessory');
 
-function getAllAccessory() {
+function getAccessory(id) {
     return Accessory.find({});
+}
+
+module.exports = {
+    getAccessory
 }
