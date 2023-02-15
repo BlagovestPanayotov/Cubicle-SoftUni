@@ -1,4 +1,5 @@
 const Cube = require('../models/Cube');
+const { getAccessoryById } = require('./accessoryService');
 
 function getCubes(search, from, to) {
     // if (!search) search = '';
@@ -12,15 +13,24 @@ function getCubes(search, from, to) {
 }
 
 function getById(id) {
-    return Cube.findById(id);
+    return Cube.findById(id).populate('accessories');
 }
 
 function createCube({ name, description, imageUrl, difficultyLevel }) {
     return Cube.create({ name, description, imageUrl, difficultyLevel });
 }
 
+async function attachAccessory(cubeId, accessoriesId) {
+    const [cube, accessory] = await Promise.all([getById(cubeId), getAccessoryById(accessoriesId)]);
+    cube.accessories.push(accessory);
+    accessory.cubes.push(cube)
+    console.log(cube);
+    return Promise.all([cube.save(), accessory.save()]);
+}
+
 module.exports = {
     getCubes,
     getById,
-    createCube
+    createCube,
+    attachAccessory
 }
