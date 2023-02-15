@@ -22,6 +22,8 @@ router.get('/attach/accessory/:cubeId', async (req, res) => {
     try {
         const cube = await getById(cubeId).lean();
         const missingAccessories = await getMissingAccessory(cubeId).lean();
+        console.log(cubeId);
+        console.log(missingAccessories);
         cube.missingAccessories = missingAccessories;
         res.render('attachAccessory', {
             title: 'Attach Accessory',

@@ -8,7 +8,7 @@ const cubeSchema = new Schema({
     description: { type: String, required: true, max: [100, 'The description can be maximum 100 characters.'] },
     imageUrl: { type: String, required: true, validate: validator.isURL({ message: 'Must be a Valid URL', protocols: ['http', 'https'], require_tld: true, require_protocol: true }) },
     difficultyLevel: { type: Number, required: true },
-    accessories: { type: [Types.ObjectId], default: [], ref: 'Accessory' }
+    accessories: [{ type: Types.ObjectId, default: [], ref: 'Accessory' }]
 });
 
 

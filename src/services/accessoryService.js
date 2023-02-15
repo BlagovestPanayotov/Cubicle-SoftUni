@@ -9,7 +9,7 @@ function getAccessoryById(id) {
 }
 
 function getMissingAccessory(id) {
-    return Accessory.find({ _id: { $nin: id } });
+    return Accessory.find({ cubes: { $nin: id } });
 }
 
 function createAccessory(name, imageUrl, description) {
