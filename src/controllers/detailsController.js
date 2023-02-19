@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { getMissingAccessory } = require('../services/accessoryService');
 const { getById } = require('../services/cubeServices');
 
-router.get('/details/:cubeId', async (req, res) => {
+router.get('/:cubeId', async (req, res) => {
     const id = req.params.cubeId;
     try {
         const cube = await getById(id).lean();

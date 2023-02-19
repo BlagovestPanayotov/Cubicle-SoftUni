@@ -2,11 +2,11 @@ const router = require('express').Router();
 
 const { createCube } = require('../services/cubeServices');
 
-router.get('/create', (req, res) => {
+router.get('/', (req, res) => {
     res.render('create', { title: 'Create Cube Page' })
 });
 
-router.post('/create', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const cube = await createCube(req.body);
         await cube.save();

@@ -24,7 +24,6 @@ async function attachAccessory(cubeId, accessoriesId) {
     const [cube, accessory] = await Promise.all([getById(cubeId), getAccessoryById(accessoriesId)]);
     cube.accessories.push(accessory);
     accessory.cubes.push(cube)
-    console.log(cube);
     return Promise.all([cube.save(), accessory.save()]);
 }
 

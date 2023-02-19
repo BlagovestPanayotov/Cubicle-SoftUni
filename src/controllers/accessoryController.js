@@ -3,11 +3,11 @@ const { getById, attachAccessory } = require('../services/cubeServices');
 
 const router = require('express').Router();
 
-router.get('/create/accessory', (req, res) => {
+router.get('/create', (req, res) => {
     res.render('createAccessory');
 });
 
-router.post('/create/accessory', async (req, res) => {
+router.post('/create', async (req, res) => {
     const { name, imageUrl, description } = req.body;
     try {
         await createAccessory(name, imageUrl, description);
@@ -17,13 +17,11 @@ router.post('/create/accessory', async (req, res) => {
     }
 });
 
-router.get('/attach/accessory/:cubeId', async (req, res) => {
+router.get('/:cubeId/attachAccessory', async (req, res) => {
     const cubeId = req.params.cubeId;
     try {
         const cube = await getById(cubeId).lean();
         const missingAccessories = await getMissingAccessory(cubeId).lean();
-        console.log(cubeId);
-        console.log(missingAccessories);
         cube.missingAccessories = missingAccessories;
         res.render('attachAccessory', {
             title: 'Attach Accessory',
@@ -35,8 +33,8 @@ router.get('/attach/accessory/:cubeId', async (req, res) => {
     }
 });
 
-router.post('/attach/accessory/:id', async (req, res) => {
-    const cubeId = req.params.id;
+router.post('/:cubeId/attachAccessory', async (req, res) => {
+    const cubeId = req.params.cubeId;
     const accessoryId = req.body.accessory
     try {
         await attachAccessory(cubeId, accessoryId);

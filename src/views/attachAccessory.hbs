@@ -6,7 +6,7 @@
         <h2>{{name}}</h2>
         <img class="cube" src="{{imageUrl}}">
         {{#if missingAccessories}}
-        <form action="/attach/accessory/{{_id}}" method="post">
+        <form action="/accessory/{{_id}}/attachAccessory" method="post">
             <label for="accessory">Accessories</label>
             <select id="accessory" name="accessory" />
             {{#each missingAccessories}}
