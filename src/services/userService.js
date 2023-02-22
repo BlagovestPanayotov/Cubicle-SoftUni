@@ -14,7 +14,7 @@ async function createUser(username, password) {
     if (!exist) {
       const user = await User.create({
         username,
-        password,
+        password
       });
       return user;
     } else {

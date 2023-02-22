@@ -1,5 +1,8 @@
-function isOwner(userId, cube) {
-    return userId == cube.owner;
+function isOwner(cubeId, ownerCubes) {
+    // console.log(cubeId);
+    // console.log('-----------');
+    // console.log(ownerCubes);
+    return ownerCubes.some(x => x == cubeId);
 }
 
 function isAdmin(roles) {

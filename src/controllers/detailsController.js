@@ -10,8 +10,9 @@ router.get('/:cubeId', async (req, res) => {
   try {
     const cube = await getById(id).lean();
     const missingAccessories = await getMissingAccessory(id).lean();
+
     cube.missingAccessories = missingAccessories;
-    cube.isOwner = isOwner(cube, req.user._id);
+    cube.isOwner = isOwner(id, req.ownedCubes);
 
     res.render('details', {
       cube,
@@ -27,8 +28,8 @@ router.get('/:cubeId', async (req, res) => {
 router.get('/:cubeId/edit', async (req, res) => {
   const id = req.params.cubeId;
   try {
+    if (!isOwner(id, req.ownedCubes)) throw new Error('You are not the owner!');
     const cube = await getById(id).lean();
-    if (!isOwner(cube, req.user._id)) throw new Error('You are not the owner!');
     cube.difficulties = generateDifficultyLevel(cube.difficultyLevel);
 
     res.render('editCubePage', {
@@ -45,6 +46,8 @@ router.post('/:cubeId/edit', async (req, res) => {
   const { name, description, imageUrl, difficultyLevel } = req.body;
 
   try {
+    if (!isOwner(cubeId, req.ownedCubes)) throw new Error('You are not the owner!');
+
     if (name == '' || description == '' || imageUrl == '' || difficultyLevel == '') throw new Error('All fields are required');
     await editById(cubeId, { name, description, imageUrl, difficultyLevel, owner: req.user._id });
     res.redirect('/details/' + cubeId);
@@ -63,8 +66,9 @@ router.post('/:cubeId/edit', async (req, res) => {
 router.get('/:cubeId/delete', async (req, res) => {
   const id = req.params.cubeId;
   try {
+    if (!isOwner(id, req.ownedCubes)) throw new Error('You are not the owner!');
+
     const cube = await getById(id).lean();
-    if (!isOwner(cube, req.user._id)) throw new Error('You are not the owner!');
     cube.difficulties = generateDifficultyLevel(cube.difficultyLevel);
 
     res.render('deleteCubePage', {
@@ -80,6 +84,7 @@ router.post('/:cubeId/delete', async (req, res) => {
   const cubeId = req.params.cubeId;
 
   try {
+    if (!isOwner(id, req.ownedCubes)) throw new Error('You are not the owner!');
     await deleteById(cubeId);
     res.redirect('/');
   } catch (err) {

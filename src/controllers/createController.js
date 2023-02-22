@@ -11,8 +11,8 @@ router.post('/', async (req, res) => {
 
   try {
     if (name == '' || description == '' || imageUrl == '' || difficultyLevel == '') throw new Error('All fields are required');
-    
-    await createCube({ name, description, imageUrl, difficultyLevel, owner: req.user._id });
+
+    await createCube({ name, description, imageUrl, difficultyLevel, owner: req.user._id }, req.user._id);
     res.redirect('/');
   } catch (err) {
     res.render('create', {

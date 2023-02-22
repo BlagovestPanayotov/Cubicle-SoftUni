@@ -1,4 +1,5 @@
 const jwt = require('../lib/jsonwebtoken');
+const { isAdmin } = require('../utils/authGuards');
 const SECRET = require('../config/config').SECRET;
 
 async function authMiddleware(req, res, next) {
@@ -9,9 +10,11 @@ async function authMiddleware(req, res, next) {
       const decodedToken = await jwt.verify(token, SECRET);
       req.user = decodedToken;
       req.isAuthenticated = true;
-      
-      res.locals.user = decodedToken;
+      console.log(decodedToken.cubes);
+      req.ownedCubes = decodedToken.cubes;
 
+      res.locals.isAdmin = isAdmin(decodedToken.roles);
+      res.locals.user = decodedToken;
       res.locals.isAuthenticated = true;
     } catch (err) {
       console.log(err.message);

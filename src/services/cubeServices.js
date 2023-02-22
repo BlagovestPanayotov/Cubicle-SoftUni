@@ -1,4 +1,5 @@
 const Cube = require('../models/Cube');
+const User = require('../models/User');
 const { getAccessoryById } = require('./accessoryService');
 
 function getCubes(search, from, to) {
@@ -24,8 +25,10 @@ function deleteById(id) {
     return Cube.findByIdAndDelete(id);
 }
 
-function createCube({ name, description, imageUrl, difficultyLevel, owner }) {
-    return Cube.create({ name, description, imageUrl, difficultyLevel, owner });
+async function createCube({ name, description, imageUrl, difficultyLevel, owner }, userId) {
+    const cube = await Cube.create({ name, description, imageUrl, difficultyLevel, owner });
+    await User.findByIdAndUpdate(userId, { $push: { cubes: cube._id } });
+    return cube;
 }
 
 async function attachAccessory(cubeId, accessoriesId) {
