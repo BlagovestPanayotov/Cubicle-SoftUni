@@ -1,4 +1,4 @@
-const jwt = require('../lib/jsonwebtoken');
+const jwt = require('../lib/jsonwebtoken')
 const { createUser, getUser } = require('../services/userService')
 const bcrypt = require('bcrypt')
 const secret = require('../config/config').SECRET
@@ -23,9 +23,18 @@ router.post('/login', async (req, res) => {
     const hashCheck = await bcrypt.compare(password, user.password)
     if (!hashCheck) throw new Error('Wrong username or password!')
 
-    const token = await jwt.sign({ user: user.username }, secret, { expiresIn: '30min' });
+    const token = await jwt.sign(
+      {
+        user: user.username,
+        userId: user._id,
+      },
+      secret,
+      {
+        expiresIn: '30min',
+      },
+    )
 
-    console.log(token);
+    res.cookie('token', token, { httpOnly: true })
 
     res.redirect('/')
   } catch (err) {
@@ -60,13 +69,18 @@ router.post('/register', async (req, res) => {
 
     const token = jwt.sign({ user: user.name }, secret, { expiresIn: '30min' })
 
-
+    res.cookie('token', token, { httpOnly: true })
     res.redirect('/')
   } catch (err) {
     return res.render('registerPage', {
       message: await err.message,
     })
   }
+})
+
+router.get('/logout', (rec, res) => {
+  res.clearCookie('token')
+  res.redirect('/')
 })
 
 module.exports = router
