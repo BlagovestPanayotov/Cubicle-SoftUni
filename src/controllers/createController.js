@@ -1,19 +1,24 @@
-const router = require('express').Router()
+const router = require('express').Router();
 
-const { createCube } = require('../services/cubeServices')
+const { createCube } = require('../services/cubeServices');
 
 router.get('/', (req, res) => {
-  res.render('create', { title: 'Create Cube Page' })
-})
+  res.render('create', { title: 'Create Cube Page' });
+});
 
 router.post('/', async (req, res) => {
-  try {
-    const cube = await createCube(req.body)
-    await cube.save()
-    res.redirect('/')
-  } catch (err) {
-    res.redirect('/404')
-  }
-})
+  const { name, description, imageUrl, difficultyLevel } = req.body;
 
-module.exports = router
+  try {
+    if (name == '' || description == '' || imageUrl == '' || difficultyLevel == '') throw new Error('All fields are required');
+    const cube = await createCube({ name, description, imageUrl, difficultyLevel });
+    await cube.save();
+    res.redirect('/');
+  } catch (err) {
+    res.render('create', {
+      message: err.message
+    });
+  }
+});
+
+module.exports = router;

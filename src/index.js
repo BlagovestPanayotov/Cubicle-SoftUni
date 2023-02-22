@@ -13,7 +13,7 @@ setupViewEngine(app);
 database(app);
 
 app.use(cookieParser());
-app.use(authMiddleware)
+app.use(authMiddleware);
 app.use(routes);
 
 app.listen(config.PORT, () => console.log(`Server is running on PORT ${config.PORT}...`))
