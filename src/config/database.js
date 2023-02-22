@@ -6,10 +6,7 @@ const connectionString = url;
 module.exports = async (app) => {
     try {
         mongoose.set('strictQuery', true);
-        await mongoose.connect(connectionString, {
-            useUnifiedTopology: true,
-            useNewUrlParser: true
-        });
+        await mongoose.connect(connectionString);
         console.log('Database connected');
     } catch (err) {
         console.error('Error initializing database');

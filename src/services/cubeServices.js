@@ -17,15 +17,15 @@ function getById(id) {
 }
 
 function editById(id, cube) {
-    return Cube.findByIdAndUpdate(id, cube);
+    return Cube.findByIdAndUpdate(id, cube, { runValidators: true });
 }
 
-function deleteById(id){
+function deleteById(id) {
     return Cube.findByIdAndDelete(id);
 }
 
-function createCube({ name, description, imageUrl, difficultyLevel }) {
-    return Cube.create({ name, description, imageUrl, difficultyLevel });
+function createCube({ name, description, imageUrl, difficultyLevel, owner }) {
+    return Cube.create({ name, description, imageUrl, difficultyLevel, owner });
 }
 
 async function attachAccessory(cubeId, accessoriesId) {

@@ -9,8 +9,8 @@ const userController = require('../controllers/userController');
 const { isAuthenticated } = require('../middlewares/authMiddleware');
 
 router.use(homeController);
-router.use('/details', detailsController);
-router.use('/accessory', accessoryController);
+router.use('/details', isAuthenticated, detailsController);
+router.use('/accessory', isAuthenticated, accessoryController);
 router.use('/create', isAuthenticated, createController);
 router.use('/user', userController);
 

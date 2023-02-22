@@ -9,7 +9,7 @@ const cubeSchema = new Schema({
     imageUrl: { type: String, required: true, validate: validator.isURL({ message: 'Must be a Valid URL', protocols: ['http', 'https'], require_tld: true, require_protocol: true }) },
     difficultyLevel: { type: Number, required: true },
     accessories: [{ type: Types.ObjectId, default: [], ref: 'Accessory' }],
-    ownerId: { type: String, require: true }
+    owner: { type: Types.ObjectId, ref: 'User', required: true }
 });
 
 

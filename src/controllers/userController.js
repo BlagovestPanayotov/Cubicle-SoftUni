@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
     const token = await jwt.sign(
       {
         user: user.username,
-        userId: user._id,
+        _id: user._id,
       },
       secret,
       {
@@ -67,7 +67,16 @@ router.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(password, 10);
     const user = await createUser(username, hash);
 
-    const token = jwt.sign({ user: user.name }, secret, { expiresIn: '30min' });
+    const token = await jwt.sign(
+      {
+        user: user.username,
+        _id: user._id,
+      },
+      secret,
+      {
+        expiresIn: '30min',
+      },
+    );
 
     res.cookie('token', token, { httpOnly: true });
     res.redirect('/');
