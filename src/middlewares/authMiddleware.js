@@ -10,7 +10,6 @@ async function authMiddleware(req, res, next) {
       const decodedToken = await jwt.verify(token, SECRET);
       req.user = decodedToken;
       req.isAuthenticated = true;
-      console.log(decodedToken.cubes);
       req.ownedCubes = decodedToken.cubes;
 
       res.locals.isAdmin = isAdmin(decodedToken.roles);

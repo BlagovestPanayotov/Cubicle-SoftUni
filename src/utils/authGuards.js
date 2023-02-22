@@ -1,7 +1,4 @@
 function isOwner(cubeId, ownerCubes) {
-    // console.log(cubeId);
-    // console.log('-----------');
-    // console.log(ownerCubes);
     return ownerCubes.some(x => x == cubeId);
 }
 

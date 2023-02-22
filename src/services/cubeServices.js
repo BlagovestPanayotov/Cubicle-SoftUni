@@ -3,14 +3,19 @@ const User = require('../models/User');
 const { getAccessoryById } = require('./accessoryService');
 
 function getCubes(search, from, to) {
-    // if (!search) search = '';
-    // if (!from) from = 1;
-    // if (!to) to = 6;
+
+    if (!search) search = '';
+    if (!from) from = 1;
+    if (!to) to = 6;
+
     // return db.cubes.filter(x => x.name.toLowerCase().includes(search.toLowerCase()))
     //     .filter(x => x.difficultyLevel >= from)
     //     .filter(x => x.difficultyLevel <= to);
 
-    return Cube.find({});
+    return Cube.find({ name: { $in: (new RegExp(search, 'i')) } })
+        .find({ difficultyLevel: { $gte: from } })
+        .find({ difficultyLevel: { $lte: to } });
+
 }
 
 function getById(id) {
