@@ -4,7 +4,7 @@ async function checkUsernameAvailability(username) {
   return User.findOne({ username })
 }
 
-async function getUser(username, password) {
+async function getUser(username) {
   return User.findOne({ username })
 }
 
@@ -12,10 +12,11 @@ async function createUser(username, password) {
   const exist = await checkUsernameAvailability(username)
   try {
     if (!exist) {
-      await User.create({
+      const user = await User.create({
         username,
         password,
-      })
+      });
+      return user;
     } else {
       throw new Error('User with that name already exist!')
     }

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const url = require('./config').DB_URL
 
-const connectionString = process.env.DATABASE_CONNECTION_STRING || 'mongodb://localhost:27017/cubicle';
+const connectionString = url;
 
 module.exports = async (app) => {
     try {
